@@ -9,8 +9,8 @@ public class Manager {
 		//Création d'un nouvel objet de type ProduitA
 		ProduitA collier = new ProduitA("Collier argent", "Eragny", 333.00f, 5, Qualité.haut_de_gamme);
 		
-		System.out.println(ordinateur.calculPrix()+"€");
-		System.out.println(collier.calculPrix()+"€");
+		System.out.println(ordinateur.nom + " x " + ordinateur.quantité + " : "+ordinateur.calculPrix()+"€");
+		System.out.println(collier.nom + " x " + collier.quantité + " : " + collier.calculPrix() + "€");
 	
 	}
 
