@@ -41,7 +41,7 @@ public class ProduitA implements Iproduit{
 			return "Haut de gamme";
 			
 		default:
-			return "Qualité non définie";
+			return "Erreur : Qualité non définie";
 		}
 	}
 	
