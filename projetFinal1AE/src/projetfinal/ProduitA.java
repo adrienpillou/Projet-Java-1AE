@@ -9,6 +9,8 @@ public class ProduitA implements Iproduit{
 	public int quantité;
 	public Qualité qualité;
 	
+	public static String[] attributs= {"Nom","Ville","Prix Unitaire","Quantité","Qualité"};
+	
 	/*Constructeur avec options*/
 	public ProduitA (String nom, String ville, float prix, int quantité, Qualité qualité) {
 		this.nom=nom;
@@ -29,8 +31,22 @@ public class ProduitA implements Iproduit{
 	public float calculPrix() {
 		return this.quantité*this.prix;
 	}
+	
+	public String getQualité() {
+		switch(this.qualité) {
+		case bas_de_gamme:
+			return "Bas de gamme";
+			
+		case haut_de_gamme:
+			return "Haut de gamme";
+			
+		default:
+			return "Qualité non définie";
+		}
+	}
+	
 }
 
 enum Qualité{
-	bas_de_gamme, haut_de_gamme, non_définie
+	bas_de_gamme, haut_de_gamme, non_définie;
 }

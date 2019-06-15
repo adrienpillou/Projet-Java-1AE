@@ -8,6 +8,8 @@ public class ProduitB implements Iproduit{
 	public int quantité;
 	public int réduction;
 	
+	public static String[] attributs= {"Nom","Ville","Prix Unitaire","Quantité","Réduction"};
+	
 	/*Constructeur*/
 	public ProduitB (String nom, String ville, float prix, int quantité, int réduction) {
 		this.nom=nom;
