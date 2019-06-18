@@ -2,7 +2,7 @@ package projetfinal;
 
 public class ProduitA implements Iproduit{
 	
-	/*Variables de la classe ProduitA*/
+	//Variables de la classe ProduitA
 	public String nom;
 	public String ville;
 	public float prix;
@@ -11,7 +11,7 @@ public class ProduitA implements Iproduit{
 	
 	public static String[] attributs= {"Nom","Ville","Prix Unitaire","Quantité","Qualité"};
 	
-	/*Constructeur avec options*/
+	//Constructeur avec paramètres
 	public ProduitA (String nom, String ville, float prix, int quantité, Qualité qualité) {
 		this.nom=nom;
 		this.ville=ville;
@@ -19,7 +19,8 @@ public class ProduitA implements Iproduit{
 		this.quantité=quantité;
 		this.qualité=qualité;
 	}
-	/*Constructeur par défaut*/
+	
+	//Constructeur par défaut
 	public ProduitA () {
 		this.nom="Nouveau produit";
 		this.ville="Non définie";
@@ -32,6 +33,7 @@ public class ProduitA implements Iproduit{
 		return this.quantité*this.prix;
 	}
 	
+	//Fonction retournant la qualité du produit
 	public String getQualité() {
 		switch(this.qualité) {
 		case bas_de_gamme:
@@ -47,6 +49,7 @@ public class ProduitA implements Iproduit{
 	
 }
 
+//Enumération des qualités
 enum Qualité{
 	bas_de_gamme, haut_de_gamme, non_définie;
 }

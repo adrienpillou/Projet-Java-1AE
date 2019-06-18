@@ -2,15 +2,16 @@ package projetfinal;
 
 public class ProduitB implements Iproduit{
 	
+	//Variables de la classe ProduitB
 	public String nom;
 	public String ville;
 	public float prix;
 	public int quantité;
 	public int réduction;
 	
-	public static String[] attributs= {"Nom","Ville","Prix Unitaire","Quantité","Réduction"};
+	public static String[] attributs= {"Nom du produit","Ville de provenance","Prix Unitaire","Quantité","Réduction"};
 	
-	/*Constructeur*/
+	//Constructeur avec paramètres
 	public ProduitB (String nom, String ville, float prix, int quantité, int réduction) {
 		this.nom=nom;
 		this.ville=ville;
@@ -19,6 +20,7 @@ public class ProduitB implements Iproduit{
 		this.réduction=réduction;
 	}
 	
+	//Constructeur par défaut
 	public ProduitB() {
 		this.nom="Nouveau produit";
 		this.ville="Non définie";

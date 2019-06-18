@@ -34,7 +34,7 @@ public class Manager {
 		Tableau inventaireB = new Tableau("Inventaire des produits de type B", listeB, ProduitB.attributs, new ProduitB()) ;
 		inventaireB.ajouterLigne(new ProduitB("Voiture","L'Isle Adam",35000.00f,3,2));
 		
-		Tableau inventaireA = new Tableau("Inventaire des produits de type A", listeA, ProduitA.attributs, new ProduitA()) ;
+		//new Tableau("Inventaire des produits de type A", listeA, ProduitA.attributs, new ProduitA()) ;
 		
 	}
 	
