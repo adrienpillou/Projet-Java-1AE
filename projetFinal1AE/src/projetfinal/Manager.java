@@ -31,20 +31,44 @@ public class Manager {
 		listeB.add(montre);
 		
 		//Instanciation d'un tableau listant les produits de type B
-		Tableau inventaireB = new Tableau("Inventaire des produits de type B", listeB, ProduitB.attributs, new ProduitB()) ;
-		inventaireB.ajouterLigne(new ProduitB("Voiture","L'Isle Adam",35000.00f,3,2));
+		String[][] donnéesB = new String[listeB.size()][5];
+		for(int i =0;i<listeB.size();i++) {
+			donnéesB[i] = formaterProduit(listeB.get(i));
+		}
 		
-		//new Tableau("Inventaire des produits de type A", listeA, ProduitA.attributs, new ProduitA()) ;
+		String[][] donnéesA = new String[listeA.size()][5];
+		for(int i =0;i<listeB.size();i++) {
+			donnéesA[i] = formaterProduit(listeA.get(i));
+		}
+		
+		Tableau inventaireB = new Tableau("Inventaire des produits de type B", ProduitB.attributs, donnéesB) ;
+		inventaireB.ajouterLigne(formaterProduit(new ProduitB("Voiture","L'Isle Adam",35000.00f,3,2)));
+		
+		new Tableau("Inventaire des produits de type A", ProduitA.attributs, donnéesA) ;
 		
 	}
 	
-	public static void mettreAJourListe(ProduitB produit) {//Mettre à jour la listeB après un ajout
-		listeB.add(produit);
+	public static String[] formaterProduit(ProduitB produit){
+		String[] ligne=new String[5];
+		ligne[0]=produit.nom;
+		ligne[1]=produit.ville;
+		ligne[2]=String.format("%.2f", produit.prix);
+		ligne[3]=String.format("%d", produit.quantité);
+		ligne[4]=String.format("%d", produit.réduction);
+		return ligne;
 	}
 	
-	public static void mettreAJourListe(ProduitA produit) {//Mettre à jour la listeA après un ajout
-		listeA.add(produit);
+	public static String[] formaterProduit(ProduitA produit){
+		String[] ligne=new String[5];
+		ligne[0]=produit.nom;
+		ligne[1]=produit.ville;
+		ligne[2]=String.format("%.2f", produit.prix);
+		ligne[3]=String.format("%d", produit.quantité);
+		ligne[4]=produit.getQualité();
+		return ligne;
 	}
+	
+	
 }
 
 

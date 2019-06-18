@@ -9,7 +9,7 @@ public class ProduitA implements Iproduit{
 	public int quantité;
 	public Qualité qualité;
 	
-	public static String[] attributs= {"Nom","Ville","Prix Unitaire","Quantité","Qualité"};
+	public static String[] attributs= {"Nom","Ville","Prix Unitaire (€)","Quantité","Qualité"};
 	
 	//Constructeur avec paramètres
 	public ProduitA (String nom, String ville, float prix, int quantité, Qualité qualité) {

@@ -14,11 +14,11 @@ public class Formulaire {
 	
 	public static JFrame fenetre = new JFrame("Ajout d'un produit");
 	public static JTextField[] champs = new JTextField[5];
-	
+	public Tableau tableau;
 	//Création d'un formulaire contenant des champs relatif aux attributs
 	public Formulaire(String[] labels, JFrame parent){
 		
-		fenetre.setSize(400,200);
+		fenetre.setSize(350,175);
 		fenetre.setResizable(false);
 		fenetre.setLocationRelativeTo(parent);
 		
@@ -51,7 +51,7 @@ public class Formulaire {
 	//Ajouter un Produit de type B
 	public static void ajouterProduit(ProduitB produit) {
 		Manager.listeB.add(produit);
-		Tableau.ajouterLigne(produit);
+		//Tableau.ajouterLigne(Manager.formaterProduit(produit));
 		Formulaire.fenetre.setVisible(false);
 		Formulaire.fenetre.dispose();
 	}
