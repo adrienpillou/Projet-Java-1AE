@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Manager {
 	
 	//Listes de produits
-			static ArrayList<ProduitA> listeA = new ArrayList<ProduitA>();
-			static ArrayList<ProduitB> listeB = new ArrayList<ProduitB>();
+			public static ArrayList<ProduitA> listeA = new ArrayList<ProduitA>();
+			public static ArrayList<ProduitB> listeB = new ArrayList<ProduitB>();
 	
 	public static void main(String[] args) {
 		
@@ -31,21 +31,27 @@ public class Manager {
 		listeB.add(montre);
 		
 		//Instanciation d'un tableau listant les produits de type B
+		Tableau inventaireB = new Tableau("Inventaire des produits de type B", ProduitB.attributs, créerDonnéesTableauB(listeB), TypeProduit.TYPEB) ;
+		inventaireB.ajouterLigne(new ProduitB("Voiture","L'Isle Adam",35000.00f,3,2));
+		
+		new Tableau("Inventaire des produits de type A", ProduitA.attributs, créerDonnéesTableauA(listeA), TypeProduit.TYPEA) ;
+		
+	}
+	
+	public static String[][] créerDonnéesTableauB(ArrayList<ProduitB> liste){
 		String[][] donnéesB = new String[listeB.size()][5];
 		for(int i =0;i<listeB.size();i++) {
 			donnéesB[i] = formaterProduit(listeB.get(i));
 		}
-		
+		return donnéesB;
+	}
+	
+	public static String[][] créerDonnéesTableauA(ArrayList<ProduitA> liste){
 		String[][] donnéesA = new String[listeA.size()][5];
-		for(int i =0;i<listeB.size();i++) {
+		for(int i =0;i<listeA.size();i++) {
 			donnéesA[i] = formaterProduit(listeA.get(i));
 		}
-		
-		Tableau inventaireB = new Tableau("Inventaire des produits de type B", ProduitB.attributs, donnéesB) ;
-		inventaireB.ajouterLigne(formaterProduit(new ProduitB("Voiture","L'Isle Adam",35000.00f,3,2)));
-		
-		new Tableau("Inventaire des produits de type A", ProduitA.attributs, donnéesA) ;
-		
+		return donnéesA;
 	}
 	
 	public static String[] formaterProduit(ProduitB produit){
@@ -68,7 +74,21 @@ public class Manager {
 		return ligne;
 	}
 	
+	public static void afficherListeB() {
+		System.out.println("\n--LISTE B--");
+		for(ProduitB produit:listeB) {
+			System.out.println(produit.nom);
+		}
+	}
 	
+	public static void afficherListeA() {
+		System.out.println("\n--LISTE A--");
+		for(ProduitA produit:listeA) {
+			System.out.println(produit.nom);
+		}
+	}
+
 }
+
 
 

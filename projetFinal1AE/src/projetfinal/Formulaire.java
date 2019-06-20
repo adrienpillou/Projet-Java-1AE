@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,9 +16,11 @@ public class Formulaire {
 	public static JFrame fenetre = new JFrame("Ajout d'un produit");
 	public static JTextField[] champs = new JTextField[5];
 	public Tableau tableau;
+	
 	//Création d'un formulaire contenant des champs relatif aux attributs
-	public Formulaire(String[] labels, JFrame parent){
+	public Formulaire(String[] labels, JFrame parent, Tableau tableau){
 		
+		this.tableau=tableau;
 		fenetre.setSize(350,175);
 		fenetre.setResizable(false);
 		fenetre.setLocationRelativeTo(parent);
@@ -27,13 +30,30 @@ public class Formulaire {
 		
 		MoteurFormulaire moteur = new MoteurFormulaire();
 		
-		for(int i=0;i<labels.length;i++) {
-			JLabel labelMarge= new JLabel(labels[i]);
-			panel.add(labelMarge);
-			JTextField champTexte = new JTextField(); 
-			labelMarge.setLabelFor(champTexte);
-			champs[i]=champTexte;
-			panel.add(champTexte);
+		panel.add(new JLabel(labels[0]));
+		JTextField champNom = new JTextField();
+		panel.add(champNom);
+		
+		panel.add(new JLabel(labels[1]));
+		JTextField champVille = new JTextField();
+		panel.add(champVille);
+		
+		panel.add(new JLabel(labels[2]));
+		JTextField champPrix = new JTextField();
+		panel.add(champPrix);
+		
+		panel.add(new JLabel(labels[3]));
+		JTextField champQuantité = new JTextField();
+		panel.add(champQuantité);
+		
+		panel.add(new JLabel(labels[4]));
+		if(tableau.typeProduit==TypeProduit.TYPEB) {
+			JTextField champRéduction = new JTextField();
+			panel.add(champRéduction);
+		}else {
+			String[] options = {"Haut de gamme","Bas de gamme"};
+			JComboBox choixQualité = new JComboBox(options) ;
+			panel.add(choixQualité);
 		}
 		
 		JButton boutonAjouter=new JButton("Ajouter");
@@ -50,8 +70,6 @@ public class Formulaire {
 	
 	//Ajouter un Produit de type B
 	public static void ajouterProduit(ProduitB produit) {
-		Manager.listeB.add(produit);
-		//Tableau.ajouterLigne(Manager.formaterProduit(produit));
 		Formulaire.fenetre.setVisible(false);
 		Formulaire.fenetre.dispose();
 	}
@@ -93,7 +111,7 @@ class MoteurFormulaire implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		JButton boutonCliqué = (JButton)event.getSource();
 		if(boutonCliqué.getText().equals("Ajouter")) {
-			Formulaire.ajouterProduit(Formulaire.récupérerDonnées());
+			//Formulaire.ajouterProduit(Formulaire.récupérerDonnées());
 		}else {
 			Formulaire.annulerAjout();
 		}

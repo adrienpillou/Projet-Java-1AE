@@ -26,7 +26,7 @@ public class ProduitA implements Iproduit{
 		this.ville="Non définie";
 		this.prix=0.0f;
 		this.quantité=0;
-		this.qualité=Qualité.non_définie;
+		this.qualité=Qualité.bas_de_gamme;
 	}
 	
 	public float calculPrix() {
