@@ -70,7 +70,7 @@ public class Manager {
 		ligne[1]=produit.ville;
 		ligne[2]=String.format("%.2f", produit.prix);
 		ligne[3]=String.format("%d", produit.quantité);
-		ligne[4]=produit.getQualité();
+		ligne[4]=produit.qualité;
 		return ligne;
 	}
 	

@@ -5,8 +5,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
-public class Tableau {
+public class Tableau extends JFrame implements WindowListener{
 	
 	private final int LARGEUR = 800;
 	private final int HAUTEUR = 600;
@@ -14,12 +18,14 @@ public class Tableau {
 	public JTable tableau;
 	public TypeProduit typeProduit;
 	public Tableau instance;
+	public static Formulaire formulaire;
 	
 	//Constructeur du tableau
 	Tableau(String titreTableau,String[] colonnes, String [][] données, TypeProduit typeProduit) {
 		
 		this.typeProduit = typeProduit;
 		fenetre = new JFrame();
+		fenetre.addWindowListener(this);
 		fenetre.setTitle(titreTableau);
 		fenetre.setResizable(false);
 		fenetre.setSize(LARGEUR, HAUTEUR);//Dimensions de la fenêtre GUI
@@ -38,9 +44,7 @@ public class Tableau {
 		
 		boutonAjout.addActionListener(new ActionListener() {//Gestion du click et fonction anonyme
 				public void actionPerformed(ActionEvent evenement) {
-					/*if(typeProduit == TypeProduit.TYPEB)ajouterLigne(new ProduitB());
-					else ajouterLigne(new ProduitA());*/
-					new Formulaire(colonnes, fenetre, instance);
+					formulaire = new Formulaire(colonnes, fenetre, instance);
 				}
 			}
 		);
@@ -55,6 +59,7 @@ public class Tableau {
 		JScrollPane sp = new JScrollPane(tableau);
 		fenetre.add(sp);
 		fenetre.setVisible(true);
+		
 	}
 	
 	public void ajouterLigne(ProduitB produit) {
@@ -77,8 +82,52 @@ public class Tableau {
 			((DefaultTableModel)tableau.getModel()).removeRow(tableau.getRowCount()-1);
 		}
 	}
-}
 
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		if(Tableau.formulaire!=null) {
+			Tableau.formulaire.fenetre.dispose();
+			Tableau.formulaire.fenetre.setVisible(false);
+		}
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
 
 enum TypeProduit{
 	TYPEB, TYPEA;

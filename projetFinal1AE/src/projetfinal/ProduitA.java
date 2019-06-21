@@ -7,7 +7,7 @@ public class ProduitA implements Iproduit{
 	public String ville;
 	public float prix;
 	public int quantité;
-	public Qualité qualité;
+	public String qualité;
 	
 	public static String[] attributs= {"Nom","Ville","Prix Unitaire (€)","Quantité","Qualité"};
 	
@@ -17,7 +17,7 @@ public class ProduitA implements Iproduit{
 		this.ville=ville;
 		this.prix=prix;
 		this.quantité=quantité;
-		this.qualité=qualité;
+		this.qualité=qualité.getQualité(qualité);
 	}
 	
 	//Constructeur par défaut
@@ -26,16 +26,21 @@ public class ProduitA implements Iproduit{
 		this.ville="Non définie";
 		this.prix=0.0f;
 		this.quantité=0;
-		this.qualité=Qualité.bas_de_gamme;
+		this.qualité=Qualité.getQualité(Qualité.bas_de_gamme);
 	}
 	
 	public float calculPrix() {
 		return this.quantité*this.prix;
 	}
+
+}
+
+//Enumération des qualités
+enum Qualité{
+	bas_de_gamme, haut_de_gamme, non_définie;
 	
-	//Fonction retournant la qualité du produit
-	public String getQualité() {
-		switch(this.qualité) {
+	public static String getQualité(Qualité qualité) {
+		switch(qualité) {
 		case bas_de_gamme:
 			return "Bas de gamme";
 			
@@ -46,10 +51,4 @@ public class ProduitA implements Iproduit{
 			return "Erreur : Qualité non définie";
 		}
 	}
-	
-}
-
-//Enumération des qualités
-enum Qualité{
-	bas_de_gamme, haut_de_gamme, non_définie;
 }

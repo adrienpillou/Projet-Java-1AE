@@ -1,5 +1,6 @@
 package projetfinal;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,14 +9,21 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Formulaire {
 	
 	public static JFrame fenetre = new JFrame("Ajout d'un produit");
-	public static JTextField[] champs = new JTextField[5];
-	public Tableau tableau;
+	public static Tableau tableau;
+	
+	public static JTextField champNom;
+	public static JTextField champVille;
+	public static JTextField champPrix;
+	public static JTextField champQuantité;
+	public static JTextField champRéduction;
+	public static JComboBox choixQualité;
 	
 	//Création d'un formulaire contenant des champs relatif aux attributs
 	public Formulaire(String[] labels, JFrame parent, Tableau tableau){
@@ -31,28 +39,30 @@ public class Formulaire {
 		MoteurFormulaire moteur = new MoteurFormulaire();
 		
 		panel.add(new JLabel(labels[0]));
-		JTextField champNom = new JTextField();
+		champNom = new JTextField();
 		panel.add(champNom);
 		
 		panel.add(new JLabel(labels[1]));
-		JTextField champVille = new JTextField();
+		champVille = new JTextField();
 		panel.add(champVille);
 		
 		panel.add(new JLabel(labels[2]));
-		JTextField champPrix = new JTextField();
+		champPrix = new JTextField();
 		panel.add(champPrix);
 		
 		panel.add(new JLabel(labels[3]));
-		JTextField champQuantité = new JTextField();
+		champQuantité = new JTextField();
 		panel.add(champQuantité);
 		
 		panel.add(new JLabel(labels[4]));
 		if(tableau.typeProduit==TypeProduit.TYPEB) {
-			JTextField champRéduction = new JTextField();
+			champRéduction = new JTextField();
 			panel.add(champRéduction);
 		}else {
-			String[] options = {"Haut de gamme","Bas de gamme"};
-			JComboBox choixQualité = new JComboBox(options) ;
+			String[] options = new String[2];
+			options[0]=Qualité.getQualité(Qualité.bas_de_gamme);
+			options[1]=Qualité.getQualité(Qualité.haut_de_gamme);
+			choixQualité = new JComboBox(options) ;
 			panel.add(choixQualité);
 		}
 		
@@ -68,12 +78,6 @@ public class Formulaire {
 		fenetre.setVisible(true);
 	}
 	
-	//Ajouter un Produit de type B
-	public static void ajouterProduit(ProduitB produit) {
-		Formulaire.fenetre.setVisible(false);
-		Formulaire.fenetre.dispose();
-	}
-	
 	//Fermer le formulaire
 	public static void annulerAjout() {
 		Formulaire.fenetre.setVisible(false);
@@ -81,25 +85,41 @@ public class Formulaire {
 	}
 	
 	//Récupérer le contenu des champs de texte
-	public static ProduitB récupérerDonnées() {
-		if(vérifierLesChamps()) {
-			ProduitB nouveauProduit=new ProduitB();
-			nouveauProduit.nom=champs[0].getText();
-			nouveauProduit.ville=champs[1].getText();
-			nouveauProduit.prix=Float.parseFloat(champs[2].getText());
-			nouveauProduit.quantité=Integer.parseInt(champs[3].getText());
-			nouveauProduit.réduction=Integer.parseInt(champs[4].getText());
-			return nouveauProduit;
-		}else {
-			return new ProduitB();
+	public static void récupérerDonnées() {
+		if(vérifierLesChamps()){
+			if(Formulaire.tableau.typeProduit==TypeProduit.TYPEB ) {
+				ProduitB produit = new ProduitB();
+				produit.nom=Formulaire.champNom.getText();
+				produit.ville=Formulaire.champVille.getText();
+				produit.prix=Float.parseFloat(Formulaire.champPrix.getText());
+				produit.quantité=Integer.parseInt(Formulaire.champQuantité.getText());
+				produit.réduction=Integer.parseInt(Formulaire.champRéduction.getText());
+				Formulaire.tableau.ajouterLigne(produit);
+			}else {
+				ProduitA produit = new ProduitA();
+				produit.nom=Formulaire.champNom.getText();
+				produit.ville=Formulaire.champVille.getText();
+				produit.prix=Float.parseFloat(Formulaire.champPrix.getText());
+				produit.quantité=Integer.parseInt(Formulaire.champQuantité.getText());
+				produit.qualité=(String)Formulaire.choixQualité.getSelectedItem();
+				Formulaire.tableau.ajouterLigne(produit);
+			}
+			Formulaire.fenetre.setVisible(false);
+			Formulaire.fenetre.dispose();
 		}
 	}
 	
 	//Vérifier les champs de texte
 	public static boolean vérifierLesChamps() {
-		for(JTextField champ:champs) {
-			if(champ.getText().length()==0) {
-				return false;
+		Component[] champs = Formulaire.fenetre.getContentPane().getComponents();
+		for(Component champ:champs) {
+			if(champ.toString().contains("javax.swing.JTextField")) {
+				JTextField champAVérifier = (JTextField) champ;
+				if(champAVérifier.getText().equals(null) || champAVérifier.getText().length()==0) {
+					JOptionPane.showMessageDialog(Formulaire.fenetre,"Veuillez remplir tous les champs !",
+																					"Erreur lors de l'ajout",JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
 			}
 		}
 		return true;
@@ -111,7 +131,7 @@ class MoteurFormulaire implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		JButton boutonCliqué = (JButton)event.getSource();
 		if(boutonCliqué.getText().equals("Ajouter")) {
-			//Formulaire.ajouterProduit(Formulaire.récupérerDonnées());
+			Formulaire.récupérerDonnées();
 		}else {
 			Formulaire.annulerAjout();
 		}
