@@ -3,6 +3,8 @@ package projetfinal;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -30,6 +32,9 @@ public class Tableau extends JFrame implements WindowListener{
 		fenetre.setResizable(false);
 		fenetre.setSize(LARGEUR, HAUTEUR);//Dimensions de la fenêtre GUI
 		fenetre.setLocationRelativeTo(null);
+		Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
+		/*if(typeProduit==TypeProduit.TYPEA) fenetre.setLocation(tailleEcran.width/4-LARGEUR/2, tailleEcran.height/2-HAUTEUR/2);
+		else fenetre.setLocation(3*(tailleEcran.width/4)-LARGEUR/2, tailleEcran.height/2-HAUTEUR/2);*/
 		tableau = new JTable(new DefaultTableModel(données,colonnes));
 		tableau.setEnabled(false);
 		instance=this;
@@ -82,6 +87,7 @@ public class Tableau extends JFrame implements WindowListener{
 			((DefaultTableModel)tableau.getModel()).removeRow(tableau.getRowCount()-1);
 		}
 	}
+	
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {

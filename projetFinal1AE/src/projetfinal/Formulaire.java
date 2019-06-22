@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,7 +19,6 @@ public class Formulaire {
 	
 	public static JFrame fenetre = new JFrame("Ajout d'un produit");
 	public static Tableau tableau;
-	
 	public static JTextField champNom;
 	public static JTextField champVille;
 	public static JTextField champPrix;
@@ -37,6 +38,7 @@ public class Formulaire {
 		panel.setLayout(new GridLayout(labels.length+1,2));
 		
 		MoteurFormulaire moteur = new MoteurFormulaire();
+		MoteurChampNumérique moteurChampNum = new MoteurChampNumérique();
 		
 		panel.add(new JLabel(labels[0]));
 		champNom = new JTextField();
@@ -48,15 +50,18 @@ public class Formulaire {
 		
 		panel.add(new JLabel(labels[2]));
 		champPrix = new JTextField();
+		champPrix.addKeyListener(moteurChampNum);
 		panel.add(champPrix);
 		
 		panel.add(new JLabel(labels[3]));
 		champQuantité = new JTextField();
+		champQuantité.addKeyListener(moteurChampNum);
 		panel.add(champQuantité);
 		
 		panel.add(new JLabel(labels[4]));
 		if(tableau.typeProduit==TypeProduit.TYPEB) {
 			champRéduction = new JTextField();
+			champRéduction.addKeyListener(moteurChampNum);
 			panel.add(champRéduction);
 		}else {
 			String[] options = new String[2];
@@ -92,15 +97,15 @@ public class Formulaire {
 				produit.nom=Formulaire.champNom.getText();
 				produit.ville=Formulaire.champVille.getText();
 				produit.prix=Float.parseFloat(Formulaire.champPrix.getText());
-				produit.quantité=Integer.parseInt(Formulaire.champQuantité.getText());
-				produit.réduction=Integer.parseInt(Formulaire.champRéduction.getText());
+				produit.quantité=(int)Float.parseFloat(Formulaire.champQuantité.getText());
+				produit.réduction=(int)Float.parseFloat(Formulaire.champRéduction.getText());
 				Formulaire.tableau.ajouterLigne(produit);
 			}else {
 				ProduitA produit = new ProduitA();
 				produit.nom=Formulaire.champNom.getText();
 				produit.ville=Formulaire.champVille.getText();
 				produit.prix=Float.parseFloat(Formulaire.champPrix.getText());
-				produit.quantité=Integer.parseInt(Formulaire.champQuantité.getText());
+				produit.quantité=(int)Float.parseFloat(Formulaire.champQuantité.getText());
 				produit.qualité=(String)Formulaire.choixQualité.getSelectedItem();
 				Formulaire.tableau.ajouterLigne(produit);
 			}
@@ -136,4 +141,31 @@ class MoteurFormulaire implements ActionListener{
 			Formulaire.annulerAjout();
 		}
 	}
+}
+
+class MoteurChampNumérique implements KeyListener{
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		JTextField source = (JTextField)arg0.getSource();
+		char caractèreTapé = arg0.getKeyChar();
+		if(!(Character.isDigit(caractèreTapé) || (caractèreTapé == KeyEvent.VK_DELETE) || (caractèreTapé=='.'))) {
+			arg0.consume();
+		}
+	}
+	
 }
