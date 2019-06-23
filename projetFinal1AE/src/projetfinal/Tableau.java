@@ -8,9 +8,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
+
 
 public class Tableau extends JFrame implements WindowListener{
 	
@@ -26,7 +25,7 @@ public class Tableau extends JFrame implements WindowListener{
 	Tableau(String titreTableau,String[] colonnes, String [][] données, TypeProduit typeProduit) {
 		
 		this.typeProduit = typeProduit;
-		fenetre = new JFrame();
+		fenetre = new JFrame();//Création de la fenetre
 		fenetre.addWindowListener(this);
 		fenetre.setTitle(titreTableau);
 		fenetre.setResizable(false);
@@ -39,7 +38,7 @@ public class Tableau extends JFrame implements WindowListener{
 		tableau.setEnabled(false);
 		instance=this;
 		
-		//Création des boutons
+		//Création des boutons et disposition
 		JPanel boutons =new JPanel();
 		JButton boutonAjout = new JButton("Ajouter");
 		JButton boutonSup = new JButton("Supprimer");
@@ -67,6 +66,7 @@ public class Tableau extends JFrame implements WindowListener{
 		
 	}
 	
+	//Ajoute un produit B au tableau
 	public void ajouterLigne(ProduitB produit) {
 		Manager.listeB.add(produit);
 		Manager.afficherListeB();
@@ -74,12 +74,14 @@ public class Tableau extends JFrame implements WindowListener{
 		((DefaultTableModel)tableau.getModel()).addRow(new Object[] {ligne[0], ligne[1], ligne[2], ligne[3], ligne[4]});
 	}
 	
+	//Ajoute un produit B au tableau
 	public void ajouterLigne(ProduitA produit) {
 		Manager.listeA.add(produit);
 		String[] ligne = Manager.formaterProduit(produit);
 		((DefaultTableModel)tableau.getModel()).addRow(new Object[] {ligne[0], ligne[1], ligne[2], ligne[3], ligne[4]});
 	}
 	
+	//Supprime la dernière ligne du tableau
 	public void supprimerLigne() {
 		if(tableau.getRowCount()>0) {
 			if(typeProduit == TypeProduit.TYPEB)Manager.listeB.remove(tableau.getRowCount()-1);
@@ -88,7 +90,6 @@ public class Tableau extends JFrame implements WindowListener{
 		}
 	}
 	
-
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub

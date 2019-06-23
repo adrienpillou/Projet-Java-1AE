@@ -34,12 +34,14 @@ public class Formulaire {
 		fenetre.setResizable(false);
 		fenetre.setLocationRelativeTo(parent);
 		
+		//Création du panel et disposition
 		JPanel panel =new JPanel();
 		panel.setLayout(new GridLayout(labels.length+1,2));
 		
 		MoteurFormulaire moteur = new MoteurFormulaire();
 		MoteurChampNumérique moteurChampNum = new MoteurChampNumérique();
 		
+		//Création des composants
 		panel.add(new JLabel(labels[0]));
 		champNom = new JTextField();
 		panel.add(champNom);
@@ -143,19 +145,17 @@ class MoteurFormulaire implements ActionListener{
 	}
 }
 
+//Restreint un champ de texte à recevoir uniquement des nombres
 class MoteurChampNumérique implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

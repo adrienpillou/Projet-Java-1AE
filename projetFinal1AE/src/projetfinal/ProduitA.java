@@ -29,6 +29,7 @@ public class ProduitA implements Iproduit{
 		this.qualité=Qualité.getQualité(Qualité.bas_de_gamme);
 	}
 	
+	//Fonction de l'interface IProduit
 	public float calculPrix() {
 		return this.quantité*this.prix;
 	}

@@ -29,6 +29,7 @@ public class ProduitB implements Iproduit{
 		this.réduction=0;
 	}
 	
+	//Fonction de l'interface IProduit
 	public float calculPrix() {
 		return (this.quantité*this.prix)*(1-(this.réduction*.01f));
 	}
