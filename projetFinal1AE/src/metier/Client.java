@@ -3,10 +3,10 @@ package metier;
 public class Client {
 	
 	//Attributs privés
-	private String nom;
-	private String prénom;
-	private int âge;
-	private String ville;
+	private String nom; //Nom du client
+	private String prénom; //Prénom du client
+	private int âge; //Age du client 
+	private String ville; //Ville du client
 	
 	//Constructeur avec arguments
 	public Client(String nom, String prénom, int âge, String ville) {
@@ -33,7 +33,7 @@ public class Client {
 		this.nom = nom.toUpperCase();
 	}
 
-	public String getPrenom() {
+	public String getPrénom() {
 		return prénom;
 	}
 
@@ -59,7 +59,7 @@ public class Client {
 	
 	//Affiche les informations d'un client en une ligne dans la console
 	public void afficherClient() {
-		System.out.printf("%s %s, %d ans de %s \n",this.getNom(), this.getPrenom(), this.getÂge(), this.getVille());
+		System.out.printf("%s %s, %d ans de %s \n",this.getNom(), this.getPrénom(), this.getÂge(), this.getVille());
 	}
 	
 	/*
@@ -68,5 +68,4 @@ public class Client {
 		return this.getClass().getCanonicalName()+"@"+this.getNom()+"_"+this.getPrenom()+"_"+this.getÂge()+"_"+this.getVille();
 	}*/
 	
-
 }

@@ -18,7 +18,7 @@ public class StudentDao {
 		liste = instanceDao.createClient("Marie","DUBOIS",33,"Nice");
 		liste = instanceDao.createClient("Sophie","DUBOIS",30,"Nice");
 		liste = instanceDao.createClient("Anne","DUBOIS",66,"Nice");
-		liste = instanceDao.createClient("Pierre","DUPONT",65,"Dauville");
+		liste = instanceDao.createClient("Pierre","DUPONT",65,"Deauville");
 		liste = instanceDao.createClient("Germain","DENTIER",23,"Montpellier");
 		liste = instanceDao.createClient();//Création d'un client par l'utilisateur depuis la console
 		
@@ -31,7 +31,7 @@ public class StudentDao {
 		Scanner scan = new Scanner(System.in);
 		String mc = scan.next();
 		Client cible = instanceDao.getClientParMC(mc, liste);
-		if(cible!=null) {//Si un client correspond au mot-clé
+		if(cible!=null) { //Si un client correspond au mot-clé
 			System.out.println("Première ocurrence trouvée : ");
 			cible.afficherClient();
 			//System.out.println("Objet trouvé : "+cible.toString());

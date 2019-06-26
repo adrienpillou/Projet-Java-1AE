@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -41,7 +40,7 @@ public class Formulaire {
 		MoteurFormulaire moteur = new MoteurFormulaire();
 		MoteurChampNumérique moteurChampNum = new MoteurChampNumérique();
 		
-		//Création des composants
+		//Création des composants JTextField, JLabel, JComboBox
 		panel.add(new JLabel(labels[0]));
 		champNom = new JTextField();
 		panel.add(champNom);
@@ -73,11 +72,11 @@ public class Formulaire {
 			panel.add(choixQualité);
 		}
 		
-		JButton boutonAjouter=new JButton("Ajouter");
-		boutonAjouter.addActionListener(moteur);
+		JButton boutonAjouter=new JButton("Ajouter"); //Création du bouton ajouter
+ 		boutonAjouter.addActionListener(moteur);
 		panel.add(boutonAjouter);
 		
-		JButton boutonAnnuler=new JButton("Annuler");
+		JButton boutonAnnuler=new JButton("Annuler"); //Création du bouton supprimer
 		boutonAnnuler.addActionListener(moteur);
 		panel.add(boutonAnnuler);
 		
@@ -85,15 +84,15 @@ public class Formulaire {
 		fenetre.setVisible(true);
 	}
 	
-	//Fermer le formulaire
+	//Annuler l'ajout et fermer le formulaire
 	public static void annulerAjout() {
 		Formulaire.fenetre.setVisible(false);
-		Formulaire.fenetre.dispose();
+		Formulaire.fenetre.dispose(); // fermeture du JFrame
 	}
 	
 	//Récupérer le contenu des champs de texte
 	public static void récupérerDonnées() {
-		if(vérifierLesChamps()){
+		if(vérifierLesChamps()){// Vérification des champs afin d'éviter les erreurs
 			if(Formulaire.tableau.typeProduit==TypeProduit.TYPEB ) {
 				ProduitB produit = new ProduitB();
 				produit.nom=Formulaire.champNom.getText();
@@ -112,19 +111,19 @@ public class Formulaire {
 				Formulaire.tableau.ajouterLigne(produit);
 			}
 			Formulaire.fenetre.setVisible(false);
-			Formulaire.fenetre.dispose();
+			Formulaire.fenetre.dispose(); // fermeture du JFrame
 		}
 	}
 	
 	//Vérifier les champs de texte
 	public static boolean vérifierLesChamps() {
-		Component[] champs = Formulaire.fenetre.getContentPane().getComponents();
-		for(Component champ:champs) {
-			if(champ.toString().contains("javax.swing.JTextField")) {
+		Component[] champs = Formulaire.fenetre.getContentPane().getComponents(); //Récupération des composants du panel
+		for(Component champ:champs) { //Foreach parcourant les composants
+			if(champ.toString().contains("javax.swing.JTextField")) { //Si le composant est un JTextField
 				JTextField champAVérifier = (JTextField) champ;
-				if(champAVérifier.getText().equals(null) || champAVérifier.getText().length()==0) {
+				if(champAVérifier.getText().equals(null) || champAVérifier.getText().length()==0) { // Vérification
 					JOptionPane.showMessageDialog(Formulaire.fenetre,"Veuillez remplir tous les champs !",
-																					"Erreur lors de l'ajout",JOptionPane.ERROR_MESSAGE);
+																					"Erreur lors de l'ajout",JOptionPane.ERROR_MESSAGE); //Message d'erreur
 					return false;
 				}
 			}
@@ -137,9 +136,9 @@ public class Formulaire {
 class MoteurFormulaire implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		JButton boutonCliqué = (JButton)event.getSource();
-		if(boutonCliqué.getText().equals("Ajouter")) {
+		if(boutonCliqué.getText().equals("Ajouter")) { //Appuie du bouton ajouter
 			Formulaire.récupérerDonnées();
-		}else {
+		}else { //Appuie du bouton annuler
 			Formulaire.annulerAjout();
 		}
 	}
@@ -163,8 +162,9 @@ class MoteurChampNumérique implements KeyListener{
 		// TODO Auto-generated method stub
 		JTextField source = (JTextField)arg0.getSource();
 		char caractèreTapé = arg0.getKeyChar();
+		//Si la touche appuyé est numérique ou un point
 		if(!(Character.isDigit(caractèreTapé) || (caractèreTapé == KeyEvent.VK_DELETE) || (caractèreTapé=='.'))) {
-			arg0.consume();
+			arg0.consume(); //Ignore la caractère tapé
 		}
 	}
 	

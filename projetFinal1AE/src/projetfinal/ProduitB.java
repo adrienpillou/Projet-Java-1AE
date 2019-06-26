@@ -3,12 +3,13 @@ package projetfinal;
 public class ProduitB implements Iproduit{
 	
 	//Variables de la classe ProduitB
-	public String nom;
-	public String ville;
-	public float prix;
-	public int quantité;
-	public int réduction;
+	public String nom; //Nom du produit
+	public String ville; //Ville de provenance du produit
+	public float prix; //Prix unitaire du produit
+	public int quantité; //Nombre d'unités
+	public int réduction; //Réduction applicable au produit
 	
+	//Légende des attributs de la classe utilisée pour les colonnes du tableau
 	public static String[] attributs= {"Nom du produit","Ville de provenance","Prix Unitaire (€)","Quantité","Réduction (%)"};
 	
 	//Constructeur avec paramètres
